@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build-docker-image') {
             steps {
-                scripts{
+                script{
                     build_docker_image()
                 }
             }
@@ -17,7 +17,7 @@ pipeline {
         }
         stage('deploy-dev') {
             steps {
-                scripts{
+                script{
                     deploy("DEV")
                 }
             }
