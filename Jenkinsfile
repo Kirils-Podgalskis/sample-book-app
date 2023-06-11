@@ -10,7 +10,7 @@ pipeline {
         }
         stage('unit-tests') {
             steps {
-                scripts{
+                script{
                     run_unit_tests()
                 }
             }
@@ -24,35 +24,35 @@ pipeline {
         }
         stage('api-integration-tests-dev') {
             steps {
-                scripts{
+                script{
                     run_api_tests("DEV")
                 }
             }
         }
         stage('deploy-stg') {
             steps {
-                scripts{
+                script{
                     deploy("STG")
                 }
             }
         }
         stage('api-integration-tests-stg') {
             steps {
-                scripts{
+                script{
                     run_api_tests("STG")
                 }
             }
         }
         stage('deploy-prd') {
             steps {
-                scripts{
+                script{
                     deploy("PRD")
                 }
             }
         }
         stage('api-integration-tests-prd') {
             steps {
-                scripts{
+                script{
                     run_api_tests("PRD")
                 }
             }
