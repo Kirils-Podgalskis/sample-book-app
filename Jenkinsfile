@@ -1,48 +1,77 @@
 pipeline {
     agent any
-    parameters { 
-        string(name: 'NAME', defaultValue: 'World', description: 'Just a name') 
-    }
     stages {
         stage('build-docker-image') {
             steps {
-                echo "Building docker image..."
+                scripts{
+                    build_docker_image()
+                }
             }
         }
-        stage('unit-tests'){
+        stage('unit-tests') {
             steps {
-                echo "Running unit tests in docker container..."
+                scripts{
+                    run_unit_tests()
+                }
             }
         }
-        stage('deploy-prod'){
+        stage('deploy-dev') {
             steps {
-                echo "Deploying to production environment..."
+                scripts{
+                    deploy("DEV")
+                }
             }
         }
-        stage('api-integration-test-prod'){
+        stage('api-integration-tests-dev') {
             steps {
-                echo "Running API integration tests for prod..."
+                scripts{
+                    run_api_tests("DEV")
+                }
             }
         }
-        stage('deploy-stg'){
+        stage('deploy-stg') {
             steps {
-                echo "Deploying to stage environment..."
+                scripts{
+                    deploy("STG")
+                }
             }
         }
-        stage('api-integration-test-stage'){
+        stage('api-integration-tests-stg') {
             steps {
-                echo "Running API integration tests for stage..."
+                scripts{
+                    run_api_tests("STG")
+                }
             }
         }
-        stage('deploy-dev'){
+        stage('deploy-prd') {
             steps {
-                echo "Deploying to dev environment..."
+                scripts{
+                    deploy("PRD")
+                }
             }
         }
-        stage('api-integration-test-dev'){
+        stage('api-integration-tests-prd') {
             steps {
-                echo "Running API integration tests for dev..."
+                scripts{
+                    run_api_tests("PRD")
+                }
             }
         }
     }
+}
+
+def build_docker_image(){
+    echo "Building docker image.."
+}
+
+def run_unit_tests(){
+    echo "Runnning unit tests for node application in docker container.."
+}
+
+def deploy(String environment){
+    echo "Deployment triggered on ${environment} environment.."
+}
+
+def run_api_tests(String environment){
+    echo "API tests triggered on ${environment} environment.."
 }
