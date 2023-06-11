@@ -62,6 +62,8 @@ pipeline {
 
 def build_docker_image(){
     echo "Building docker image.."
+    sh "ls"
+    sh "docker build --no-cache -t Kirils-Podgalskis/sample-book-app:latest ."
 }
 
 def run_unit_tests(){
